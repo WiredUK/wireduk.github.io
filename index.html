@@ -9,6 +9,10 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script language="javascript">
+        var email = unescape('%77%69%72%65%64%75%6B%40%67%6D%61%69%6C%2E%63%6F%6D');
+    </script>
 </head>
 
 <body>
@@ -17,24 +21,36 @@
         <h2 class="project-tagline">My GitHub website</h2>
         <a href="https://github.com/WiredUK" class="btn">Me on GitHub</a>
         <a href="http://stackoverflow.com/users/1663001/davidg" class="btn">Me on StackOverflow</a>
-        <a href="mailto:wireduk@gmail.com" class="btn">Email me</a>
+        <a id="emailLink" class="btn">Email Me</a>
+
     </section>
     <section class="main-content">
-        <h1>
-          Who am I?
-        </h1>
+        <h1>Who am I?</h1>
         <p>I am a developer. I am not a number. I am user ID 1663001 on StackOverflow.</p>
 
-        <h1>
-          What do I do?
-        </h1>
+        <h1>What do I do?</h1>
         <p>I write software for a living.</p>
-
-        <h1>
-          What is in my GitHub?
-        </h1>
+        
+        <h1>What is in my GitHub?</h1>
         <p>These are just a handful of small projects that I started and thought/hoped that other people might find useful. I hope you do too.</p>
+
+        <h1>Stuff in GitHub, what stuff?</h1>
+        <p>To save you the hassel of going and looking at my list of repositories, here are some of my favourites</p>
+        <ul>
+            <li><a href="https://github.com/WiredUK/ChromeStrap">ChromeStrap</a> - A Chrome extension for Bootstrap developers.</li>
+            <li><a href="https://github.com/WiredUK/Wired.Caching">Wired.Caching</a> - A caching library for .Net projects. Also available as a <a href="http://www.nuget.org/packages/Wired.Caching">Nuget package</a>.</li>
+            <li><a href="https://github.com/WiredUK/Mvc.Placeholders">Mvc.Placeholders</a> - Want to add placeholder images or text to your web application while developing? This might help.</li>
+        </ul>
     </section>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#emailLink').attr('href', 'mailto:'+email);
+        });
+    </script>
+
+
+
 </body>
 
 </html>
