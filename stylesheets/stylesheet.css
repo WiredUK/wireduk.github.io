@@ -243,3 +243,16 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+div.quote {
+  margin-top: 25px;
+  font-size: 25px;
+}
+
+div.quote .author {
+  font-size: 14px;
+}
+
+div.quote .author a {
+  color: white;
+}
