@@ -1,0 +1,218 @@
+﻿/// <reference path="_variables.scss" />
+
+.navigation-menu{
+	margin-top: 10px;
+}
+
+nav { 
+	margin:0;
+	padding: 0;
+	&:after {
+		content:"";
+		display:table;
+		clear:both;
+	}
+
+
+	.mobile-menu{
+		width: 70px;
+	}
+
+	.arrow {
+		font-size:11px;
+		line-height:0%;
+	}
+
+	.toggle, [id^=drop] {
+		display: none;
+	}
+	li > a:after { content:  " \25bc"; font-size: 12px;}
+	li > a:only-child:after { content: ''; }
+
+	a {
+		display:block;
+		padding:14px 20px;	
+		color:$white;
+		font-size:12px;
+		text-decoration:none;
+		font-weight: 100;
+		font-family: kaleko;
+		&:hover { 
+			background-color: $lightblue; 
+			text-decoration: none;
+			color:$white;
+		}
+	}
+
+	ul {
+		padding:0;
+		margin:0;
+		list-style: none;
+		position: relative;
+
+		ul {
+			display: none;
+			position: absolute; 
+
+			ul{
+				li {
+					position: relative;
+					top:-60px;
+					/* has to be the same number as the "width" of "nav ul ul li" */ 
+					left:170px; 
+				}
+			}
+
+			li {
+				width:170px;
+				float:none;
+				display:list-item;
+				position: relative;
+			}
+		}
+
+		li {
+			margin: 0px;
+			display:inline-block;
+			float: left;
+			background-color: $darkblue;
+
+			&:hover{
+				ul{
+					display:inherit;
+					z-index: 99999;
+				}
+			}
+
+			ul{
+				li{
+					&:hover{
+						background: $lightblue;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+//--- Responsive ---\\
+
+// xxs
+@media (max-width: $screen-xxs-max) {
+}
+
+// xs
+@media (max-width: $screen-xs-max) {
+
+.navigation-menu {
+    margin-top: 0;
+    padding: 0 !important;
+
+		nav {
+			margin: 0;
+			ul{
+				li{
+					display: block;
+					width: 100%;
+					&:hover > ul{
+						display: none;
+					}
+
+					ul{
+						li{
+							.toggle{
+								padding:14px 20px;	
+								color:#FFF;
+								font-size:12px; 
+								background-color: $lightblue;
+							}
+						}
+					}
+				}
+
+				ul{
+					float: none;
+					position:static;
+					color: $white;
+
+					.toggle{
+						padding: 0 40px;
+					}
+					a{
+						padding:14px 20px;
+						color:$white;
+						font-size:12px; 
+						background-color: $lightblue;
+					}
+
+					ul{
+						a{
+							padding:14px 20px;
+							background: $lightblue;
+							color:$white;
+							font-size:12px; 
+						}
+
+						li{
+							position: static;
+						}
+					}
+					li{
+						display: block;
+						width: 100%;
+
+						&:hover > ul{
+							display: none;
+						}
+					}
+				}
+			}
+			
+			a{
+				&:hover{
+					background: $lightblue;
+				}
+			}
+
+			.toggle + a, .menu {
+				display: none;
+			}
+
+			.toggle {
+				display: block;
+				background-color: $darkblue;
+				padding:14px 20px;	
+				color:#FFF;
+				font-size:12px;
+				font-family: kaleko;
+				text-decoration:none;
+				border:none;
+				margin-bottom: 0;
+				font-weight: 100;
+				cursor: pointer;
+				&:hover {
+					background-color: $lightblue;
+				}
+			}
+
+			[id^=drop]:checked + ul {
+				display: block;
+			}
+		}
+	}
+}
+
+//sm
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+}
+
+//md
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+}
+
+//lg
+@media (min-width: $screen-lg-min) {
+}

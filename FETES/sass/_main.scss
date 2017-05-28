@@ -1,0 +1,48 @@
+﻿/// <reference path="_variables.scss" />
+body{
+	margin-bottom: 30px !important;
+}
+
+.top-background{
+	padding: 0 !important;
+    background: url(../img/head.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.top-panel{
+	padding-top: 15px;
+	padding-bottom: 150px;
+}
+
+.three-negative-panels{
+	margin-top: -120px;
+}
+
+
+//--- Responsive ---\\
+
+// xxs
+@media (max-width: $screen-xxs-max) {
+}
+
+// xs
+@media (max-width: $screen-xs-max) {
+	.top-background{
+		text-align: center;
+		background-image: none;
+		background-color: $darkblue;
+	}
+}
+
+//sm
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+}
+
+//md
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+}
+
+//lg
+@media (min-width: $screen-lg-min) {
+}
