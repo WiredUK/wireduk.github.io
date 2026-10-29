@@ -1,0 +1,1208 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tooth Fairy For Adults</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap"
+    />
+    <style>
+      /* Layout: one centred column, a stepped form of numbered-by-content sections; tooth entries are repeatable cards. */
+      :root {
+        --bg: #eef3f5;
+        --surface: #ffffff;
+        --fg: #14232b;
+        --muted: #566872;
+        --line: #cbd7dc;
+        --accent: #b3166b;
+        --accent-fg: #ffffff;
+        --accent-soft: #f9e3ef;
+        --note-bg: #e3eef3;
+        --focus: #1a6fb3;
+        --font-display:
+          "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+        --font-body:
+          "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0f1a20;
+          --surface: #17252d;
+          --fg: #e8f0f3;
+          --muted: #9fb3bc;
+          --line: #2c414b;
+          --accent: #f26bb0;
+          --accent-fg: #1a0a12;
+          --accent-soft: #3a1b2d;
+          --note-bg: #1c3340;
+          --focus: #6bb8f2;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0f1a20;
+        --surface: #17252d;
+        --fg: #e8f0f3;
+        --muted: #9fb3bc;
+        --line: #2c414b;
+        --accent: #f26bb0;
+        --accent-fg: #1a0a12;
+        --accent-soft: #3a1b2d;
+        --note-bg: #1c3340;
+        --focus: #6bb8f2;
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.55;
+        padding-block: 24px 64px;
+        padding-left: max(16px, env(safe-area-inset-left, 0px));
+        padding-right: max(16px, env(safe-area-inset-right, 0px));
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        line-height: 1.15;
+        text-wrap: balance;
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(2rem, 6vw, 2.9rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      p {
+        margin: 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .small {
+        font-size: 0.875rem;
+      }
+
+      .demo-bar {
+        background: var(--note-bg);
+        border: 1px dashed var(--muted);
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 0.875rem;
+      }
+      .demo-bar strong {
+        font-weight: 700;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-block: 8px 4px;
+      }
+      .eyebrow {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .lead {
+        font-size: 1.1rem;
+        max-width: 60ch;
+      }
+
+      section.panel,
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-width: 0;
+      }
+      .panel > header {
+        padding: 0;
+        gap: 4px;
+      }
+
+      .rules {
+        margin: 0;
+        padding-left: 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .field > label,
+      .field > legend,
+      .label {
+        font-weight: 700;
+        padding: 0;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .opt {
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 0.85rem;
+        margin-left: 6px;
+      }
+      .req {
+        color: var(--accent);
+        margin-left: 2px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      input[type="month"],
+      select,
+      textarea {
+        width: 100%;
+        font: inherit;
+        color: var(--fg);
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px 12px;
+        min-width: 0;
+      }
+      textarea {
+        min-height: 84px;
+        resize: vertical;
+      }
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible,
+      button:focus-visible,
+      .choice:has(input:focus-visible),
+      summary:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px;
+      }
+      input[type="file"] {
+        font: inherit;
+        color: var(--muted);
+        max-width: 100%;
+      }
+
+      .choices {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .choice {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        border-radius: 999px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+      .choice input {
+        accent-color: var(--accent);
+        margin: 0;
+        width: 1.05rem;
+        height: 1.05rem;
+      }
+      .choice:has(input:checked) {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      .choices.stack {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .choices.stack .choice {
+        border-radius: 8px;
+        align-items: flex-start;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 14px;
+      }
+
+      .reveal {
+        border-left: 3px solid var(--accent);
+        padding-left: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .notice {
+        border-radius: 8px;
+        padding: 14px 16px;
+        background: var(--accent-soft);
+        border: 1px solid var(--accent);
+      }
+      .notice h3 {
+        margin-bottom: 4px;
+      }
+
+      .tooth {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-width: 0;
+      }
+      .tooth-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .tooth-tag {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--accent);
+        color: var(--accent-fg);
+        padding: 4px 10px;
+        border-radius: 4px;
+      }
+
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+      .btn {
+        border-radius: 6px;
+        padding: 11px 18px;
+        font-weight: 700;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: var(--accent-fg);
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--accent);
+      }
+      .btn.quiet {
+        background: transparent;
+        border-color: var(--line);
+        color: var(--muted);
+        padding: 7px 12px;
+        font-weight: 500;
+      }
+      .btn:hover {
+        filter: brightness(1.08);
+      }
+      .add-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .preview {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .preview img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+      }
+
+      details.help {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+      }
+      details.help summary {
+        cursor: pointer;
+        font-weight: 500;
+      }
+      details.help table {
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      details.help td,
+      details.help th {
+        padding: 2px 12px 2px 0;
+        text-align: left;
+        font-variant-numeric: tabular-nums;
+      }
+      .table-scroll {
+        overflow-x: auto;
+      }
+
+      .submit-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      #result {
+        border-radius: 8px;
+        padding: 16px;
+        background: var(--note-bg);
+        border: 1px solid var(--muted);
+      }
+      #result h3 {
+        margin-bottom: 4px;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .tooth {
+          animation: drop 0.25s ease-out;
+        }
+        @keyframes drop {
+          from {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+      }
+
+      /* Standalone reset (supplied by the artifact viewer when previewed there) */
+      :root {
+        color-scheme: light;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+      }
+      img {
+        max-width: 100%;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="demo-bar">
+        <strong>Example only.</strong> This is a mock-up to show how the form
+        will behave. Nothing you type is sent or saved.
+      </div>
+
+      <header>
+        <span class="eyebrow">Bec Hill presents</span>
+        <h1>Incosor Trading - Tooth Fairy For Adults</h1>
+        <p class="lead">
+          Got a tooth you no longer need? Tell Bec about it. She pays £5 for an
+          extracted adult tooth and £2 for a baby tooth.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="before-h">
+        <header><h2 id="before-h">Before we begin</h2></header>
+        <ul class="rules">
+          <li>
+            This form is only for <strong>expressing your interest</strong> in
+            selling a tooth or teeth. It is not the transaction itself.
+          </li>
+          <li>
+            If your submission is approved, Bec will contact you directly at the
+            email address you give, to see if an in-person sale can be arranged
+            at some point.
+          </li>
+          <li>
+            You are under no obligation to go through with the sale. But you may
+            be liable financially (and morally) if you use this form to
+            deliberately mislead or deceive. In other words, don't be a
+            timewaster or creep. Bec doesn't want to go out of her way to meet
+            some weirdo who isn't selling their tooth.
+          </li>
+          <li>
+            If you sold a tooth to Bec before this website existed, fill in the
+            form as best you can and answer the retrospective question near the
+            end.
+          </li>
+        </ul>
+      </section>
+
+      <form id="tooth-form" autocomplete="off">
+        <div class="wrap">
+          <section class="panel" aria-labelledby="age-h">
+            <fieldset class="field">
+              <legend id="age-h">
+                <h2 style="display: inline">
+                  Are you over 18?<span class="req" aria-hidden="true">*</span>
+                </h2>
+              </legend>
+              <div class="choices">
+                <label class="choice" for="age-yes"
+                  ><input
+                    type="radio"
+                    id="age-yes"
+                    name="age"
+                    value="yes"
+                    required
+                  />
+                  Yes</label
+                >
+                <label class="choice" for="age-no"
+                  ><input type="radio" id="age-no" name="age" value="no" />
+                  No</label
+                >
+              </div>
+            </fieldset>
+            <div id="age-block" class="notice" hidden role="status">
+              <h3>Sorry, not just yet</h3>
+              <p>
+                Unfortunately, you are not currently within the domain of the
+                Tooth Fairy For Adults. Please contact your local Tooth Fairy,
+                or return here once you pass the age threshold.
+              </p>
+            </div>
+            <p id="age-prompt" class="hint">
+              Answer this to see the rest of the form.
+            </p>
+          </section>
+
+          <div id="form-body" class="wrap" hidden>
+            <div class="wrap" id="teeth" aria-live="polite"></div>
+
+            <div class="add-row">
+              <button type="button" class="btn ghost" id="add-tooth">
+                + Add another tooth
+              </button>
+              <span class="hint" id="tooth-count"></span>
+            </div>
+
+            <section class="panel" aria-labelledby="you-h">
+              <header>
+                <h2 id="you-h">About you</h2>
+                <p class="hint">
+                  Only the first two boxes are needed. Share as much or as
+                  little of the rest as you like.
+                </p>
+              </header>
+
+              <div class="row">
+                <div class="field">
+                  <label for="name"
+                    >Preferred name<span class="req" aria-hidden="true"
+                      >*</span
+                    ></label
+                  >
+                  <input type="text" id="name" name="name" required />
+                </div>
+                <div class="field">
+                  <label for="pronouns"
+                    >Preferred pronouns<span class="opt">optional</span></label
+                  >
+                  <input type="text" id="pronouns" name="pronouns" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="town"
+                    >Closest city or town<span class="req" aria-hidden="true"
+                      >*</span
+                    ></label
+                  >
+                  <input type="text" id="town" name="town" required />
+                </div>
+                <div class="field">
+                  <label for="country"
+                    >Country<span class="req" aria-hidden="true">*</span></label
+                  >
+                  <select id="country" name="country" required>
+                    <option value="">Choose a country</option>
+                  </select>
+                </div>
+              </div>
+              <p class="hint" style="margin-top: -8px">
+                Roughly where you live most of the time. (Short country list for
+                this example.)
+              </p>
+
+              <div class="field" style="max-width: 200px">
+                <label for="age-years"
+                  >Age<span class="opt">optional</span></label
+                >
+                <input
+                  type="number"
+                  id="age-years"
+                  name="age-years"
+                  min="18"
+                  max="120"
+                  inputmode="numeric"
+                />
+              </div>
+
+              <div class="field">
+                <label for="spend"
+                  >How do you spend most of your time?<span class="opt"
+                    >optional</span
+                  ></label
+                >
+                <input
+                  type="text"
+                  id="spend"
+                  name="spend"
+                  placeholder="e.g. Working in robotics, parenting, and solving cryptic crosswords for fun."
+                />
+              </div>
+
+              <div class="field">
+                <label for="why"
+                  >Why have you decided to sell your tooth or teeth?<span
+                    class="opt"
+                    >optional</span
+                  ></label
+                >
+                <textarea id="why" name="why"></textarea>
+              </div>
+
+              <div class="field">
+                <label for="about-else"
+                  >Is there anything else you would like to tell me about
+                  yourself?<span class="opt">optional</span></label
+                >
+                <textarea id="about-else" name="about-else"></textarea>
+              </div>
+
+              <div class="field">
+                <label for="questions"
+                  >Do you have any questions for me (Bec Hill)?<span class="opt"
+                    >optional</span
+                  ></label
+                >
+                <textarea id="questions" name="questions"></textarea>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="perm-h">
+              <header><h2 id="perm-h">Permissions and logistics</h2></header>
+
+              <fieldset class="field">
+                <legend>
+                  Are you happy for the information above (apart from your name)
+                  to be used for statistics, and perhaps shown on this site, on
+                  Bec's social media, or onstage?<span
+                    class="req"
+                    aria-hidden="true"
+                    >*</span
+                  >
+                </legend>
+                <p class="hint">
+                  This will likely include pie charts, line graphs, and possibly
+                  even a Venn diagram.
+                </p>
+                <div class="choices">
+                  <label class="choice" for="stats-yes"
+                    ><input
+                      type="radio"
+                      id="stats-yes"
+                      name="stats"
+                      value="yes"
+                      required
+                    />
+                    Yes</label
+                  >
+                  <label class="choice" for="stats-no"
+                    ><input
+                      type="radio"
+                      id="stats-no"
+                      name="stats"
+                      value="no"
+                    />
+                    No</label
+                  >
+                </div>
+              </fieldset>
+
+              <fieldset class="field">
+                <legend>
+                  Are you happy for the information above (apart from your name)
+                  to be referenced in Bec's material, live or recorded, across
+                  all media?<span class="req" aria-hidden="true">*</span>
+                </legend>
+                <div class="choices">
+                  <label class="choice" for="material-yes"
+                    ><input
+                      type="radio"
+                      id="material-yes"
+                      name="material"
+                      value="yes"
+                      required
+                    />
+                    Yes</label
+                  >
+                  <label class="choice" for="material-no"
+                    ><input
+                      type="radio"
+                      id="material-no"
+                      name="material"
+                      value="no"
+                    />
+                    No</label
+                  >
+                </div>
+                <p class="hint">
+                  Saying no to either question still lets you submit. Bec just
+                  gets to see your answer.
+                </p>
+              </fieldset>
+
+              <div class="field">
+                <label for="email"
+                  >What is the best email address to contact you on?<span
+                    class="req"
+                    aria-hidden="true"
+                    >*</span
+                  ></label
+                >
+                <p class="hint">
+                  Used to arrange an in-person sale if Bec happens to be in your
+                  nearest town or city.
+                </p>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                />
+                <details class="help">
+                  <summary>How your email is used</summary>
+                  <p style="margin-top: 8px">
+                    Placeholder privacy notice for this example: Bec Hill holds
+                    your email address only to contact you about this
+                    submission. It is not shared or used for anything else
+                    unless you opt in below. You can ask for your details to be
+                    deleted at any time. 
+                  </p>
+                </details>
+              </div>
+
+              <fieldset class="field">
+                <legend>
+                  Would you like to be emailed if Bec announces a tour or takes
+                  a show to a festival in your country?<span
+                    class="req"
+                    aria-hidden="true"
+                    >*</span
+                  >
+                </legend>
+                <div class="choices">
+                  <label class="choice" for="mail-yes"
+                    ><input
+                      type="radio"
+                      id="mail-yes"
+                      name="mailing"
+                      value="yes"
+                      required
+                    />
+                    Yes please</label
+                  >
+                  <label class="choice" for="mail-no"
+                    ><input
+                      type="radio"
+                      id="mail-no"
+                      name="mailing"
+                      value="no"
+                    />
+                    No thanks</label
+                  >
+                </div>
+              </fieldset>
+
+              <fieldset class="field">
+                <legend>
+                  Are you filling this in because you sold a tooth or teeth to
+                  Bec before this website existed?<span
+                    class="req"
+                    aria-hidden="true"
+                    >*</span
+                  >
+                </legend>
+                <div class="choices">
+                  <label class="choice" for="retro-yes"
+                    ><input
+                      type="radio"
+                      id="retro-yes"
+                      name="retro"
+                      value="yes"
+                      required
+                    />
+                    Yes</label
+                  >
+                  <label class="choice" for="retro-no"
+                    ><input
+                      type="radio"
+                      id="retro-no"
+                      name="retro"
+                      value="no"
+                    />
+                    No, this is a new sale</label
+                  >
+                </div>
+              </fieldset>
+
+              <div id="retro-block" class="reveal" hidden>
+                <div class="row">
+                  <div class="field">
+                    <label for="retro-date"
+                      >Roughly when did the sale happen?</label
+                    >
+                    <input
+                      type="month"
+                      id="retro-date"
+                      name="retro-date"
+                      data-req
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="retro-place">Where did it happen?</label>
+                    <input
+                      type="text"
+                      id="retro-place"
+                      name="retro-place"
+                      data-req
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="retro-pay">How were you paid?</label>
+                  <select id="retro-pay" name="retro-pay" data-req>
+                    <option value="">Choose one</option>
+                    <option>Cash</option>
+                    <option>Bank transfer</option>
+                    <option>IOU</option>
+                    <option value="other">Something else</option>
+                  </select>
+                </div>
+                <div class="field" id="retro-pay-other" hidden>
+                  <label for="retro-pay-text">Tell us how</label>
+                  <input
+                    type="text"
+                    id="retro-pay-text"
+                    name="retro-pay-text"
+                    data-req
+                  />
+                </div>
+              </div>
+            </section>
+
+            <div class="submit-row">
+              <button type="submit" class="btn">Send my interest</button>
+              <p class="hint">
+                Sending this form does not commit you to anything. It just lets
+                Bec know you're interested.
+              </p>
+              <div id="result" hidden role="status" tabindex="-1"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      (function () {
+        var COUNTRIES = [
+          "United Kingdom",
+          "Ireland",
+          "United States",
+          "Canada",
+          "Australia",
+          "New Zealand",
+          "Germany",
+          "France",
+          "Netherlands",
+          "Spain",
+          "Italy",
+          "Sweden",
+          "Norway",
+          "Denmark",
+          "Poland",
+          "South Africa",
+          "India",
+          "Japan",
+          "Other",
+        ];
+        var sel = document.getElementById("country");
+        COUNTRIES.forEach(function (c) {
+          var o = document.createElement("option");
+          o.textContent = c;
+          sel.appendChild(o);
+        });
+
+        var form = document.getElementById("tooth-form");
+        var teethEl = document.getElementById("teeth");
+        var nextId = 1;
+
+        function reveal(box, on) {
+          box.hidden = !on;
+          box.querySelectorAll("[data-req]").forEach(function (i) {
+            if (i.closest("[hidden]") && i.closest("[hidden]") !== box) return;
+            i.required = on;
+          });
+        }
+
+        function toothHTML(id) {
+          var p = "t" + id;
+          return (
+            "" +
+            '<div class="tooth-head">' +
+            '<span class="tooth-tag" data-label>Tooth</span>' +
+            '<button type="button" class="btn quiet" data-remove>Remove this tooth</button>' +
+            "</div>" +
+            '<fieldset class="field">' +
+            '<legend>Is this tooth yours, grown in your own mouth?<span class="req" aria-hidden="true">*</span></legend>' +
+            '<div class="choices stack">' +
+            '<label class="choice" for="' +
+            p +
+            '-own-yes"><input type="radio" id="' +
+            p +
+            '-own-yes" name="own-' +
+            id +
+            '" value="yes" required> Yes, the tooth is mine</label>' +
+            '<label class="choice" for="' +
+            p +
+            '-own-no"><input type="radio" id="' +
+            p +
+            '-own-no" name="own-' +
+            id +
+            '" value="no"> No, the tooth is not mine, but you should make an exception because...</label>' +
+            "</div>" +
+            "</fieldset>" +
+            '<div class="field reveal" id="' +
+            p +
+            '-exc" hidden>' +
+            '<label for="' +
+            p +
+            '-exc-text">Make your case</label>' +
+            '<textarea id="' +
+            p +
+            '-exc-text" name="exc-' +
+            id +
+            '" data-req></textarea>' +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-type">What type of tooth is it?<span class="req" aria-hidden="true">*</span></label>' +
+            '<p class="hint">For example "extracted adult tooth" or "baby tooth". If you know where it was, say so ("bottom right wisdom", "top front left baby tooth"). A name or FDI/ISO number is even better, but not required.</p>' +
+            '<input type="text" id="' +
+            p +
+            '-type" name="type-' +
+            id +
+            '" list="' +
+            p +
+            '-types" required>' +
+            '<datalist id="' +
+            p +
+            '-types"><option value="Extracted adult tooth"><option value="Baby tooth"><option value="Wisdom tooth"></datalist>' +
+            '<details class="help"><summary>FDI notation examples</summary>' +
+            '<div class="table-scroll"><table><thead><tr><th>Tooth</th><th>FDI</th></tr></thead><tbody>' +
+            "<tr><td>Lower Right Third Molar</td><td>48</td></tr>" +
+            "<tr><td>Upper Left Primary Incisor</td><td>61</td></tr>" +
+            "</tbody></table></div></details>" +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-lost">How did you lose this tooth?<span class="opt">optional</span></label>' +
+            '<input type="text" id="' +
+            p +
+            '-lost" name="lost-' +
+            id +
+            '">' +
+            "</div>" +
+            '<div class="row">' +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-out">Roughly how long has it been out of your mouth?<span class="req" aria-hidden="true">*</span></label>' +
+            '<input type="text" id="' +
+            p +
+            '-out" name="out-' +
+            id +
+            '" required>' +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-store">How have you been storing it?<span class="req" aria-hidden="true">*</span></label>' +
+            '<input type="text" id="' +
+            p +
+            '-store" name="store-' +
+            id +
+            '" required>' +
+            "</div>" +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-cond">What condition is it in?<span class="req" aria-hidden="true">*</span></label>' +
+            '<p class="hint">The tooth should be whole and recognisable. Discolouration is fine. Partial or decayed teeth may still be considered if you make a case for them.</p>' +
+            '<textarea id="' +
+            p +
+            '-cond" name="cond-' +
+            id +
+            '" required></textarea>' +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-photo">Add a photo<span class="opt">optional</span></label>' +
+            '<input type="file" id="' +
+            p +
+            '-photo" name="photo-' +
+            id +
+            '" accept="image/*" data-photo>' +
+            '<div class="preview" id="' +
+            p +
+            '-preview" hidden><img alt="Your tooth photo preview"><span class="hint"></span></div>' +
+            "</div>" +
+            '<fieldset class="field">' +
+            '<legend>How much do you want for it?<span class="req" aria-hidden="true">*</span></legend>' +
+            '<p class="hint">The standard rate is £5 for an extracted tooth and £2 for a baby tooth (or the equivalent in your currency). Choose Other to suggest a different price.</p>' +
+            '<div class="choices">' +
+            '<label class="choice" for="' +
+            p +
+            '-p5"><input type="radio" id="' +
+            p +
+            '-p5" name="price-' +
+            id +
+            '" value="5" required> £5</label>' +
+            '<label class="choice" for="' +
+            p +
+            '-p2"><input type="radio" id="' +
+            p +
+            '-p2" name="price-' +
+            id +
+            '" value="2"> £2</label>' +
+            '<label class="choice" for="' +
+            p +
+            '-pother"><input type="radio" id="' +
+            p +
+            '-pother" name="price-' +
+            id +
+            '" value="other"> Other</label>' +
+            "</div>" +
+            "</fieldset>" +
+            '<div class="reveal" id="' +
+            p +
+            '-other" hidden>' +
+            '<div class="field" style="max-width: 240px">' +
+            '<label for="' +
+            p +
+            '-min">Lowest offer you would accept</label>' +
+            '<input type="text" id="' +
+            p +
+            '-min" name="min-' +
+            id +
+            '" inputmode="decimal" placeholder="e.g. £10" data-req>' +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-why">Why that amount?</label>' +
+            '<textarea id="' +
+            p +
+            '-why" name="why-' +
+            id +
+            '" data-req></textarea>' +
+            "</div>" +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-care">Any requests for how the tooth is treated after the sale?<span class="opt">optional</span></label>' +
+            '<p class="hint">Purchased teeth are kept in whatever container they were sold in. Storage may change to preserve or display them, possibly set in resin or another medium. If you would rather that didn\'t happen, say so. If your answer is a joke, please include the word JOKE, because it is hard to tell by spreadsheet.</p>' +
+            '<textarea id="' +
+            p +
+            '-care" name="care-' +
+            id +
+            '"></textarea>' +
+            "</div>" +
+            '<div class="field">' +
+            '<label for="' +
+            p +
+            '-else">Anything else you would like to tell Bec about this tooth?<span class="opt">optional</span></label>' +
+            '<textarea id="' +
+            p +
+            '-else" name="else-' +
+            id +
+            '"></textarea>' +
+            "</div>"
+          );
+        }
+
+        function relabel() {
+          var cards = teethEl.querySelectorAll(".tooth");
+          cards.forEach(function (c, i) {
+            c.querySelector("[data-label]").textContent = "Tooth " + (i + 1);
+            c.querySelector("[data-remove]").hidden = cards.length === 1;
+          });
+          document.getElementById("tooth-count").textContent =
+            cards.length === 1
+              ? "You are offering 1 tooth."
+              : "You are offering " +
+                cards.length +
+                " teeth. Each one is recorded separately.";
+        }
+
+        function addTooth(focus) {
+          var id = nextId++;
+          var card = document.createElement("section");
+          card.className = "tooth";
+          card.setAttribute("data-id", id);
+          card.innerHTML = toothHTML(id);
+          teethEl.appendChild(card);
+          relabel();
+          if (focus) {
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+            var f = card.querySelector("input");
+            if (f) f.focus({ preventScroll: true });
+          }
+        }
+
+        document
+          .getElementById("add-tooth")
+          .addEventListener("click", function () {
+            addTooth(true);
+          });
+
+        teethEl.addEventListener("click", function (e) {
+          var btn = e.target.closest("[data-remove]");
+          if (!btn) return;
+          btn.closest(".tooth").remove();
+          relabel();
+        });
+
+        form.addEventListener("change", function (e) {
+          var t = e.target;
+          if (t.name === "age") {
+            var yes = t.value === "yes";
+            document.getElementById("form-body").hidden = !yes;
+            document.getElementById("age-block").hidden = yes;
+            document.getElementById("age-prompt").hidden = true;
+            return;
+          }
+          if (t.name === "retro") {
+            reveal(document.getElementById("retro-block"), t.value === "yes");
+            if (t.value !== "yes") {
+              reveal(document.getElementById("retro-pay-other"), false);
+            } else {
+              reveal(
+                document.getElementById("retro-pay-other"),
+                document.getElementById("retro-pay").value === "other",
+              );
+            }
+            return;
+          }
+          if (t.id === "retro-pay") {
+            reveal(
+              document.getElementById("retro-pay-other"),
+              t.value === "other",
+            );
+            return;
+          }
+          var card = t.closest(".tooth");
+          if (!card) return;
+          var p = "t" + card.getAttribute("data-id");
+          if (t.name.indexOf("own-") === 0) {
+            reveal(document.getElementById(p + "-exc"), t.value === "no");
+          }
+          if (t.name.indexOf("price-") === 0) {
+            reveal(document.getElementById(p + "-other"), t.value === "other");
+          }
+          if (t.hasAttribute("data-photo")) {
+            var box = document.getElementById(p + "-preview");
+            var file = t.files && t.files[0];
+            if (!file) {
+              box.hidden = true;
+              return;
+            }
+            box.querySelector("img").src = URL.createObjectURL(file);
+            box.querySelector("span").textContent = file.name;
+            box.hidden = false;
+          }
+        });
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var n = teethEl.querySelectorAll(".tooth").length;
+          var name = document.getElementById("name").value.trim() || "there";
+          var out = document.getElementById("result");
+          out.innerHTML = "";
+          var h = document.createElement("h3");
+          h.textContent = "Thanks, " + name + ". This is only an example.";
+          var para = document.createElement("p");
+          para.textContent =
+            "On the real site this would send " +
+            n +
+            (n === 1 ? " tooth" : " teeth") +
+            " to Bec, one row each, and Bec would email you if she approves. Nothing was sent here.";
+          out.appendChild(h);
+          out.appendChild(para);
+          out.hidden = false;
+          out.focus();
+          out.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+
+        addTooth(false);
+      })();
+    </script>
+  </body>
+</html>
